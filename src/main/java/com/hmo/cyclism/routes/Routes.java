@@ -1,6 +1,6 @@
-package com.hmo.cyclism.routes.routes;
+package com.hmo.cyclism.routes;
 
-import com.hmo.cyclism.routes.handler.CyclistHandler;
+import com.hmo.cyclism.handler.CyclistHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

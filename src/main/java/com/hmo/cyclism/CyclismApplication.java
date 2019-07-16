@@ -1,4 +1,4 @@
-package com.hmo.cyclism.routes;
+package com.hmo.cyclism;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package com.hmo.cyclism.routes.config;
+package com.hmo.cyclism.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

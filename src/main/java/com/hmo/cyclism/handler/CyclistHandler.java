@@ -1,7 +1,7 @@
-package com.hmo.cyclism.routes.handler;
+package com.hmo.cyclism.handler;
 
-import com.hmo.cyclism.routes.model.Cyclist;
-import com.hmo.cyclism.routes.repository.CyclistRepository;
+import com.hmo.cyclism.model.Cyclist;
+import com.hmo.cyclism.repository.CyclistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

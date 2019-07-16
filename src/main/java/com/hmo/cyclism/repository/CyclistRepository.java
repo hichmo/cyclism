@@ -1,6 +1,6 @@
-package com.hmo.cyclism.routes.repository;
+package com.hmo.cyclism.repository;
 
-import com.hmo.cyclism.routes.model.Cyclist;
+import com.hmo.cyclism.model.Cyclist;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,7 @@
-package com.hmo.cyclism.routes;
+package com.hmo.cyclism;
 
-import com.hmo.cyclism.routes.model.Cyclist;
-import com.hmo.cyclism.routes.repository.CyclistRepository;
+import com.hmo.cyclism.model.Cyclist;
+import com.hmo.cyclism.repository.CyclistRepository;
 import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;

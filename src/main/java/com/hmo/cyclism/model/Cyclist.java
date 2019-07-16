@@ -1,4 +1,4 @@
-package com.hmo.cyclism.routes.model;
+package com.hmo.cyclism.model;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;

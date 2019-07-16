@@ -1,6 +1,6 @@
-package com.hmo.cyclism.routes.config;
+package com.hmo.cyclism.config;
 
-import com.hmo.cyclism.routes.model.Cyclist;
+import com.hmo.cyclism.model.Cyclist;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.core.MongoOperations;
