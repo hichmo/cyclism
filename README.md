@@ -16,7 +16,6 @@ This application is small and artificial, but the goal here is to show a things 
 Retrieve repository
 ```
 git clone https://github.com/hichmo/cyclism.git
-git checkout develop
 ```
 Start the mongodb container
 ```
