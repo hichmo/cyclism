@@ -20,13 +20,13 @@ git checkout develop
 ```
 Start the mongodb container
 ```
-cd api/docker
+cd cyclism/docker
 docker-compose up -d
 ```
 
 Build the application
 ```
-cd api
+cd cyclism
 ./mvnw clean install
 ```
 Run the application
