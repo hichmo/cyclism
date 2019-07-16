@@ -16,17 +16,16 @@ This application is small and artificial, but the goal here is to show a things 
 Retrieve repository
 ```
 git clone https://github.com/hichmo/cyclism.git
-git checkout develop
 ```
 Start the mongodb container
 ```
-cd api/docker
+cd cyclism/docker
 docker-compose up -d
 ```
 
 Build the application
 ```
-cd api
+cd cyclism
 ./mvnw clean install
 ```
 Run the application
