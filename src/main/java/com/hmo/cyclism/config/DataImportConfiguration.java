@@ -27,6 +27,6 @@ public class DataImportConfiguration {
                 Cyclist.builder().name("Vincenzo Nibali").team("Bahrain Merida").build(),
                 Cyclist.builder().name("Thibaut Pinot").team("Groupama FDJ").build(),
                 Cyclist.builder().name("Richie Porte").team("Trek Segafredo").build(),
-                Cyclist.builder().name("Primoz Roglic").team("Jumbo Vista").build());
+                Cyclist.builder().name("Primoz Roglic").team("Jumbo Visma").build());
     }
 }
