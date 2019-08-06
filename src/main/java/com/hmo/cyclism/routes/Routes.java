@@ -17,7 +17,7 @@ public class Routes {
     private CyclistHandler cyclistHandler;
 
     @Bean
-    public RouterFunction<ServerResponse> routerPublish() {
+    public RouterFunction<ServerResponse> routerCyclist() {
         return route(GET("/cyclists"), cyclistHandler::handleFindAll)
                 .andRoute(GET("/cyclists/{id}"), cyclistHandler::handleFindById)
                 .andRoute(POST("/cyclists"), cyclistHandler::handleCreate)
