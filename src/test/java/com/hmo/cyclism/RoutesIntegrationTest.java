@@ -42,7 +42,7 @@ public class RoutesIntegrationTest {
     }
 
     @Test
-    @DisplayName("Test find all cyclists status is OK")
+    @DisplayName("Test get all cyclists")
     public void should_return_status_ok_when_find_all() {
         webTestClient.get().uri("/cyclists")
                 .exchange()
@@ -51,10 +51,10 @@ public class RoutesIntegrationTest {
 
     @Test
     @DisplayName("Test create cyclist")
-    public void should_create_cyclist() {
-        webTestClient.post().uri("/cyclists").contentType(MediaType.APPLICATION_JSON_UTF8)
-                .accept(MediaType.APPLICATION_JSON_UTF8)
-                .body(Mono.just(Cyclist.builder().name("Mikel Landa Meana").team("Movistar").build()), Cyclist.class)
+    public void should_return_cyclist_json_when_create_cyclist() {
+        webTestClient.post().uri("/cyclists").contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .body(Mono.just(new Cyclist("Mikel Landa Meana", "Movistar")), Cyclist.class)
                 .exchange()
                 .expectStatus().isCreated()
                 .expectBody()
@@ -65,17 +65,16 @@ public class RoutesIntegrationTest {
 
     @Test
     @DisplayName("Test update cyclist")
-    public void should_update_cyclist() {
+    public void should_return_updated_cyclist_when_update() {
 
-        Mono<Cyclist> cyclist = repository.save(Cyclist.builder()
-                .name("Richie Porte")
-                .team("BMC")
-                .build());
+        Mono<Cyclist> cyclist = repository.save(new Cyclist
+                ("Richie Porte",
+                        "BMC"));
 
         Cyclist cyclistToUpdate = cyclist.block();
         cyclistToUpdate.setTeam("Trek Segafredo");
-        webTestClient.put().uri("/cyclists/" + cyclistToUpdate.getId()).contentType(MediaType.APPLICATION_JSON_UTF8)
-                .accept(MediaType.APPLICATION_JSON_UTF8)
+        webTestClient.put().uri("/cyclists/" + cyclistToUpdate.getId()).contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
                 .body(Mono.just(cyclistToUpdate), Cyclist.class)
                 .exchange()
                 .expectStatus().isOk()
@@ -86,10 +85,9 @@ public class RoutesIntegrationTest {
     @Test
     @DisplayName("Test delete cyclist")
     public void should_return_no_content_when_delete_cyclist() {
-        Mono<Cyclist> cyclist = repository.save(Cyclist.builder()
-                .name("Vincenzo Nibali")
-                .team("Bahrain Merida")
-                .build());
+        Mono<Cyclist> cyclist = repository.save(new Cyclist(
+                "Vincenzo Nibali",
+                "Bahrain Merida"));
 
         webTestClient.delete().uri("/cyclists/" + cyclist.block().getId())
                 .exchange()
