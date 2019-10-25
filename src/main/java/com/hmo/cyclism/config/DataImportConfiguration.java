@@ -23,10 +23,10 @@ public class DataImportConfiguration {
 
     private List<Cyclist> getCyclists() {
         return Arrays.asList(
-                Cyclist.builder().name("Chris Froome").team("Ineos").build(),
-                Cyclist.builder().name("Vincenzo Nibali").team("Bahrain Merida").build(),
-                Cyclist.builder().name("Thibaut Pinot").team("Groupama FDJ").build(),
-                Cyclist.builder().name("Richie Porte").team("Trek Segafredo").build(),
-                Cyclist.builder().name("Primoz Roglic").team("Jumbo Visma").build());
+                new Cyclist("Chris Froome", "Ineos"),
+                new Cyclist("Vincenzo Nibali", "Bahrain Merida"),
+                new Cyclist("Thibaut Pinot", "Groupama FDJ"),
+                new Cyclist("Richie Porte", "Trek Segafredo"),
+                new Cyclist("Primoz Roglic", "Jumbo Visma"));
     }
 }
