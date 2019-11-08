@@ -26,7 +26,6 @@ class RoutesIntegrationTest(
     @BeforeAll
     fun setup() {
         repository.deleteAll().subscribe()
-        createCyclist().subscribe()
     }
 
     @Test
@@ -40,9 +39,10 @@ class RoutesIntegrationTest(
     @Test
     @DisplayName("Test find cyclist by wrong ID status not found")
     fun should_return_status_not_found_when_find_by_unknown_id() {
-        webTestClient.get().uri("/cyclists/id")
+        webTestClient.get().uri("/cyclists/unknown_id")
                 .exchange()
                 .expectStatus().isNotFound
+                .expectBody().isEmpty
     }
 
     @Test
@@ -61,21 +61,27 @@ class RoutesIntegrationTest(
     @Test
     @DisplayName("Test delete cyclist status no content")
     fun should_return_no_content_when_delete_cyclist() {
-
+        createCyclist().subscribe()
         val id = findOneCyclist().block()!!.id;
-
         webTestClient.delete().uri("/cyclists/$id")
                 .exchange()
                 .expectStatus().isNoContent
+    }
 
+    @Test
+    @DisplayName("Test delete cyclist wrong id")
+    fun should_return_error_when_delete_cyclist_with_wrong_id() {
+        webTestClient.delete().uri("/cyclists/wrong_id")
+                .exchange()
+                .expectStatus().isNotFound
     }
 
     @Test
     @DisplayName("Test update cyclist return new team")
     fun should_return_new_team_when_update_cyclist() {
-
-        val cyclist = findOneCyclist().block();
-        cyclist!!.team = "Trek Segafredo";
+        createCyclist().subscribe()
+        val cyclist = findOneCyclist().block()
+        cyclist!!.team = "Trek Segafredo"
 
         webTestClient.put()
                 .uri("/cyclists/" + cyclist!!.id)
@@ -85,6 +91,19 @@ class RoutesIntegrationTest(
                 .exchange()
                 .expectBody()
                 .jsonPath("$.team").isEqualTo("Trek Segafredo")
+
+    }
+
+    @Test
+    @DisplayName("Test update cyclist return new team")
+    fun should_return_bad_request_when_update_cyclist_with_unknown_id() {
+        webTestClient.put()
+                .uri("/cyclists/unknown")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .body(Mono.empty(), Cyclist::class.java)
+                .exchange()
+                .expectStatus().isBadRequest
 
     }
 
