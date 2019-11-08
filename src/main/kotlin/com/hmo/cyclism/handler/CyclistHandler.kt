@@ -3,13 +3,12 @@ package com.hmo.cyclism.handler
 import com.hmo.cyclism.model.Cyclist
 import com.hmo.cyclism.repository.CyclistRepository
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
 import org.springframework.web.reactive.function.server.ServerResponse.ok
-import org.springframework.web.server.ResponseStatusException
 import reactor.core.publisher.Mono
+import java.time.Duration
 
 @Service
 class CyclistHandler(
@@ -18,11 +17,8 @@ class CyclistHandler(
 ) {
     fun handleFindAll(request: ServerRequest): Mono<ServerResponse> = ServerResponse.ok()
             .body(repository.findAll(), Cyclist::class.java)
-            .switchIfEmpty(ServerResponse.notFound().build())
-
 
     fun handleFindById(request: ServerRequest): Mono<ServerResponse> {
-
         return repository.findById(request.pathVariable("id"))
                 .flatMap { cy -> ServerResponse.ok().body(cy, Cyclist::class.java) }
                 .switchIfEmpty(ServerResponse.notFound().build())
@@ -46,19 +42,16 @@ class CyclistHandler(
                                 existingCyclist.id = cyclistToUpdate.id
                                 ok().body(repository.save(existingCyclist), Cyclist::class.java)
                             }
+                            .switchIfEmpty(ServerResponse.badRequest().build())
                 }
     }
 
     fun handleDelete(request: ServerRequest): Mono<ServerResponse> {
-        val id = request.pathVariable("id")
-        return repository.findById(id)
-                .doOnSuccess { repository::delete }
-                .flatMap { ServerResponse.noContent().build() }
-                .onErrorResume { exception ->
-                    Mono.error(ResponseStatusException(
-                            HttpStatus.NOT_FOUND,
-                            "Cyclist with id " + id + " does not exists", exception))
+        return repository.findById(request.pathVariable("id"))
+                .flatMap { existingCyclist ->
+                    repository.delete(existingCyclist)
+                            .then(ServerResponse.noContent().build())
                 }
-
+                .switchIfEmpty(ServerResponse.notFound().build())
     }
 }
