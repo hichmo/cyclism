@@ -16,8 +16,6 @@ class DataImportConfiguration(@Autowired val mongo: ReactiveMongoOperations) : C
                     if (!col)
                         mongo.createCollection(Cyclist::class.java).subscribe()
                     getCyclists().forEach { c -> mongo.save(c).subscribe() }
-
-
                 }.subscribe()
 
 
