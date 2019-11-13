@@ -3,7 +3,7 @@
 **Introduction**
 
 This application is small and artificial, but the goal here is to show a things around
-**Spring Functional Web Framework, WebFlux, ReactiveMongoDB, WebTestClient**
+**Kotlin, Spring Functional Web Framework, WebFlux, ReactiveMongoDB, WebTestClient**
 
 
 **Prerequisites :** Java 12,  Docker
