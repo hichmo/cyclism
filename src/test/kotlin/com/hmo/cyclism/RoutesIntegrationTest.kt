@@ -62,7 +62,7 @@ class RoutesIntegrationTest(
     @DisplayName("Test delete cyclist status no content")
     fun should_return_no_content_when_delete_cyclist() {
         createCyclist().subscribe()
-        val id = findOneCyclist().block()!!.id;
+        val id = findOneCyclist().block()!!.id
         webTestClient.delete().uri("/cyclists/$id")
                 .exchange()
                 .expectStatus().isNoContent
@@ -84,26 +84,13 @@ class RoutesIntegrationTest(
         cyclist!!.team = "Trek Segafredo"
 
         webTestClient.put()
-                .uri("/cyclists/" + cyclist!!.id)
+                .uri("/cyclists/" + cyclist.id)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(Mono.just(cyclist), Cyclist::class.java)
                 .exchange()
                 .expectBody()
                 .jsonPath("$.team").isEqualTo("Trek Segafredo")
-
-    }
-
-    @Test
-    @DisplayName("Test update cyclist return new team")
-    fun should_return_bad_request_when_update_cyclist_with_unknown_id() {
-        webTestClient.put()
-                .uri("/cyclists/unknown")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .body(Mono.empty(), Cyclist::class.java)
-                .exchange()
-                .expectStatus().isBadRequest
 
     }
 
