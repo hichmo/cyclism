@@ -1,34 +1,44 @@
 version: '2'
 services:
-  mongodb:
-    image: 'bitnami/mongodb:latest'
-    container_name: 'mongo-cyclism'
+  db-cyclism:
+    image: "postgres"
+    container_name: "postgres-cyclism"
+    #   Setup the username, password, and database name. You can changes these values.
+    environment:
+      - POSTGRES_USER=uci
+      - POSTGRES_PASSWORD=uci
+      - POSTGRES_DB=cyclism-db
+    #   Maps port 54320 (localhost) to port 5432 on the container. You can change the ports to fix your needs.
     ports:
-    - "27017:27017"
+      - "54320:5432"
+    #   Set a volume some that database is not lost after shutting down the container.
+    #   I used the name postgres-data but you can changed it to something else.
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
   sonarqube:
     image: sonarqube
     ports:
-    - "9000:9000"
+      - "9000:9000"
     networks:
-    - sonarnet
+      - sonarnet
     environment:
-    - sonar.jdbc.url=jdbc:postgresql://db:5432/sonar
+      - sonar.jdbc.url=jdbc:postgresql://db:5432/sonar
     volumes:
-    - sonarqube_conf:/opt/sonarqube/conf
-    - sonarqube_data:/opt/sonarqube/data
-    - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_conf:/opt/sonarqube/conf
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
 
   db:
     image: postgres
     networks:
-    - sonarnet
+      - sonarnet
     environment:
-    - POSTGRES_USER=sonar
-    - POSTGRES_PASSWORD=sonar
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=sonar
     volumes:
-    - postgresql:/var/lib/postgresql
-    # This needs explicit mapping due to https://github.com/docker-library/postgres/blob/4e48e3228a30763913ece952c611e5e9b95c8759/Dockerfile.template#L52
-    - postgresql_data:/var/lib/postgresql/data
+      - postgresql:/var/lib/postgresql
+      # This needs explicit mapping due to https://github.com/docker-library/postgres/blob/4e48e3228a30763913ece952c611e5e9b95c8759/Dockerfile.template#L52
+      - postgresql_data:/var/lib/postgresql/data
 
 networks:
   sonarnet:

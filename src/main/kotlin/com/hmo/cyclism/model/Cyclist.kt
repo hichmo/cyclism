@@ -1,11 +1,22 @@
 package com.hmo.cyclism.model
 
-import org.springframework.data.annotation.Id
-import org.springframework.data.mongodb.core.mapping.Document
+import org.hibernate.annotations.GenericGenerator
+import java.util.*
+import javax.persistence.*
 
 
-@Document("cyclists")
-data class Cyclist(@Id var id: String? = null, var name: String, var team: String)
+@Table(name = "cyclists")
+@Entity(name = "cyclist")
+data class Cyclist(@Id
+                   @GeneratedValue(generator = "UUID")
+                   @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+                   var id: String?,
+                   @Column var name: String?,
+                   @Column var team: String?){
+
+    constructor() : this(null, null, null)
+
+}
 
 
 
