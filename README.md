@@ -3,10 +3,10 @@
 **Introduction**
 
 This application is small and artificial, but the goal here is to show a things around
-**Kotlin, Spring Functional Web Framework, WebFlux, ReactiveMongoDB, WebTestClient**
+**Kotlin, Spring, JPA, Hibernate**
 
 
-**Prerequisites :** Java 12,  Docker
+**Prerequisites :** Java 11,  Docker
 
 * [Start](#start)
 * [Help](#help)
@@ -17,7 +17,7 @@ Retrieve repository
 ```
 git clone https://github.com/hichmo/cyclism.git
 ```
-Start the mongodb container
+Start the postgresql container
 ```
 cd cyclism/docker
 docker-compose up -d
